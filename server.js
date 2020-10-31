@@ -24,9 +24,10 @@ app.use(cors())
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => { res.status(200).json({users: database.users}) });
-app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) });
+app.post('/signin', signin.signinAuthentication(db, bcrypt));
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) });
 app.get('/user/:id', (req, res) => { profile.getProfile(req, res, db) });
+app.post('/user/:id', (req, res) => { profile.handleProfileUpdate(req, res, db) });
 app.put('/image', (req, res) => { image.updateEntries(req, res, db) });
 app.post('/imageurl', (req, res) => { image.handleApiCall(req, res) });
 
